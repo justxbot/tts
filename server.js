@@ -25,8 +25,14 @@ app.post('/tts', async (req, res) => {
       outputFormat: 'mp3_44100_128',
     });
 
+    const chunks = [];
+    for await (const chunk of audio) {
+      chunks.push(chunk);
+    }
+    const buffer = Buffer.concat(chunks);
+
     const filePath = path.join(process.cwd(), 'output.mp3');
-    fs.writeFileSync(filePath, Buffer.from(audio));
+    fs.writeFileSync(filePath, buffer);
 
     res.download(filePath, 'tts.mp3', (err) => {
       if (err) console.error(err);
