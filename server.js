@@ -21,7 +21,7 @@ app.post('/tts', async (req, res) => {
 
     const audio = await elevenlabs.textToSpeech.convert(VOICE_ID, {
       text,
-      modelId: 'eleven_ttv_v3',
+      modelId: 'eleven_v3',
       outputFormat: 'mp3_44100_128',
     });
 
